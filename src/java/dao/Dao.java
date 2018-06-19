@@ -22,13 +22,13 @@ public class Dao <T> implements Serializable {
         this.classe = classe;
     }
 
-    public T alterar(T projeto) {
+    public T alterar(T objeto) {
         manager = JpaUtil.getEntityManager();
         manager.getTransaction().begin();
-        projeto = manager.merge(projeto);
+        objeto = manager.merge(objeto);
         manager.getTransaction().commit();
         manager.close();
-        return projeto;
+        return objeto;
     }
 
     public T buscarPorCodigo(Object id) {
