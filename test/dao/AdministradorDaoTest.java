@@ -34,11 +34,18 @@ public class AdministradorDaoTest {
     public void tearDown() {
     }
 
+//    @Test
+//    public void testInserir() {
+//        Dao<Administrador> dao = new Dao(Administrador.class);
+//        Administrador adm = new Administrador("TICO", "Tico Silva", "1234");
+//        dao.inserir(adm);
+//    }
+    
     @Test
-    public void testInserir() {
+    public void testBuscarPorNome(){
         AdministradorDao dao = new AdministradorDao();
-        Administrador adm = new Administrador("TICO", "Tico Silva", "1234");
-        dao.inserir(adm);
+        Administrador adm = dao.buscarPorNome("Pica Pau");
+        System.out.println(adm.getId() + " - " + adm.getLogin());
     }
     
 }
