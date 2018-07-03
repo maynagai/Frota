@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Usuários</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <p/>    
+            <h:form id="formPrincipal">
+                <h:link outcome="/menu" value="Voltar" />
+                <p/>
+                <p:commandLink styleClass="botaoLink" value="Cadastrar novo usuário"                 
+                               action="#{usuarioGerenciar.abrirPopupNovo()}"
+                               update="@form, popupNovo"/>
+                <p/>
+                <p:dataTable id="tabelaUsuarios" emptyMessage="Nenhum usuario cadastrado" 
+                             resizableColumns="true" tableStyle="width:auto"
+                             var="user" value="#{usuarioGerenciar.usuarios}">
+                    <p:column headerText="Id:"  style="text-align: right">
+                        <h:outputText value="#{user.id}"/>
+                    </p:column>
+                    <p:column headerText="Nome:">
+                        <h:outputText value="#{user.nome}"/>
+                    </p:column>
+                    <p:column headerText="Unidade: ">
+                        <h:outputText value="#{user.unidade}"/>
+                    </p:column  >
+                    <p:column headerText=" " style="text-align: center">
+                        <p:commandLink value="excluir"  immediate="true" 
+                                       action="#{usuarioGerenciar.excluirUsuario(user)}"
+                                       update="@form">
+                            <p:confirm header="Excluir" message="Você tem certeza que deseja excluir este usuário?"
+                                       icon="ui-icon-alert"/>
+                        </p:commandLink>
+                    </p:column>
+                    <p:column headerText="" style="text-align: center">
+                        <p:commandLink value="editar" 
+                                       action="#{usuarioGerenciar.preparaEditarUsuario(user)}"
+                                       onclick="PF('editarUsuarioDlg').show()"
+                                       update="@form, :formEditarUsuario"/>
+                    </p:column>
+                </p:dataTable>
+                
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
+                        <p:commandButton value="sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:outputPanel>
+                </p:confirmDialog>
+            </h:form>
+            <!-- novo aluno  -->
+            <p:dialog closable="false" modal="true" header="Novo usuario" id="popupNovo"  
+                      widgetVar="popupNovo"  visible="#{usuarioGerenciar.mostraPopupNovo}"  >
+                <h:form id="formIncluirUsuario" >
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Nome: "/>
+                        <p:inputText id="campoLogin" value="#{usuarioGerenciar.novo.nome}" 
+                                     maxlength="50" 
+                                     required="true" requiredMessage="Nome obrigatório" > 
+                        </p:inputText>
+                        <p:outputLabel value="Unidade: "/>
+                        <p:inputText value="#{usuarioGerenciar.novo.unidade}" maxlength="30"
+                                     required="true" requiredMessage="Unidade obrigatória"/>
+                    </h:panelGrid>
+                    <p:outputPanel style="width: 100%; text-align:center" layout="block">
+                        <p:commandButton value="Cancelar" action="#{usuarioGerenciar.fecharPopupNovo()}"
+                                         update=":popupNovo" immediate="true" />
+                        <p:commandButton value="Confirmar" action="#{usuarioGerenciar.inserirUsuario()}" 
+                                         update=":popupNovo, :formPrincipal"/>                           
+                    </p:outputPanel>
+                    <h:panelGrid columns="1">
+                        <p:messages showIcon="false" />
+                    </h:panelGrid>   
+                </h:form>
+            </p:dialog>
+
+
+            <ui:include src="usuarioAlterar.xhtml" />
+        </h:body>
+    </f:view>
+</html>
+
