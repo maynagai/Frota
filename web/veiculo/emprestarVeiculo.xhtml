@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Veículos</title>
+            </f:facet>
+        </h:head>
+    </f:view>
+    <h:body>
+        <p/>    
+        <h:form id="formPrincipal">
+            <h:link outcome="/menu" value="Voltar" />
+            <p/>
+            <h:panelGrid columns="2" >
+                <p:outputLabel value="Veículo: " />
+                <p:selectOneMenu id="comboVeiculo" converter="veiculoConverter" 
+                                 required="true" requiredMessage="Selecione o veículo"  
+                                 value="#{emprestarVeiculo.emprestimo.veiculo}" >
+                    <f:selectItem itemValue="#{null}" itemLabel="Escolha um veículo" 
+                                  noSelectionOption="false"/>
+                    <f:selectItems value="#{emprestarVeiculo.veiculos}" 
+                                   var="vei"
+                                   itemValue="#{vei}"
+                                   itemLabel="#{vei.placa}"/>
+                </p:selectOneMenu> 
+                <p:outputLabel value="Usuário: " />
+                <p:selectOneMenu id="comboUsuario" converter="usuarioConverter" 
+                                 required="true" requiredMessage="Selecione o usuário"  
+                                 value="#{emprestarVeiculo.emprestimo.usuario}" >
+                    <f:selectItem itemValue="#{null}" itemLabel="Escolha um usuário" 
+                                  noSelectionOption="false"/>
+                    <f:selectItems value="#{emprestarVeiculo.usuarios}" 
+                                   var="usu"
+                                   itemValue="#{usu}"
+                                   itemLabel="#{usu.nome}"/>
+                </p:selectOneMenu> 
+                <p:outputLabel value="Data retirada: " />
+                <p:calendar  id="dataRetirada" timeZone="GMT-3" pattern="dd/MM/yyyy" 
+                             value="#{emprestarVeiculo.emprestimo.retirada}"
+                             locale="pt" showOn="button"
+                             required="true" requiredMessage="DATA é obrigatória">
+                </p:calendar>
+                <p:commandButton value="gravar" action="#{emprestarVeiculo.registrarEmprestimo()}"
+                                 update="@form"  />
+            </h:panelGrid>
+
+            <p/>
+            <p:messages />
+        </h:form>
+    </h:body>
+</html>

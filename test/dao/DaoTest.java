@@ -69,20 +69,30 @@ public class DaoTest {
 //        dao.inserir(e);
 //    }
 
+//    @Test
+//    public void testAlterarUsuario() {
+//        Dao<Usuario> dao = new Dao(Usuario.class);
+//        Usuario u = new Usuario();
+//        u.setId(3);
+//        u = dao.buscarPorCodigo(u.getId());  // tem que buscar para recuperar a referência ao objeto
+//        System.out.println("Antes: ");
+//        System.out.println("Nome: " + u.getNome() + "\n\n");
+//
+//        // alterando o nome
+//        u.setNome("José Reinaldo Merlin");
+//        // gravando
+//        dao.alterar(u);
+//        u = dao.buscarPorCodigo(u.getId());  // tem que buscar para recuperar a referência ao objeto
+//    }
+    
+    
     @Test
-    public void testAlterarUsuario() {
-        Dao<Usuario> dao = new Dao(Usuario.class);
-        Usuario u = new Usuario();
-        u.setId(3);
-        u = dao.buscarPorCodigo(u.getId());  // tem que buscar para recuperar a referência ao objeto
-        System.out.println("Antes: ");
-        System.out.println("Nome: " + u.getNome() + "\n\n");
-
-        // alterando o nome
-        u.setNome("José Reinaldo Merlin");
-        // gravando
-        dao.alterar(u);
-        u = dao.buscarPorCodigo(u.getId());  // tem que buscar para recuperar a referência ao objeto
+    public void testeListarVeiculos(){
+        Dao<Veiculo> dao = new Dao(Veiculo.class);
+        List<Veiculo> lista = dao.listarTodos();
+        for (Veiculo v: lista){
+            System.out.println(v.toString());
+        }
     }
 
 }

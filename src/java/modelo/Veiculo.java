@@ -4,8 +4,10 @@ package modelo;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +26,8 @@ public class Veiculo implements Serializable{
     private String marca;
     @Column(length = 30)
     private String modelo;
+    @Column(length = 8)
+    private String placa;
     @Column
     private Integer lugares;
     
@@ -85,6 +89,14 @@ public class Veiculo implements Serializable{
     public void setEmprestimos(List<Emprestimo> emprestimos) {
         this.emprestimos = emprestimos;
     }
+    
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
 
     @Override
     public int hashCode() {
@@ -121,7 +133,7 @@ public class Veiculo implements Serializable{
 
     @Override
     public String toString() {
-        return "Veiculo{" + "id=" + id + ", marca=" + marca + ", modelo=" + modelo + ", lugares=" + lugares + '}';
+        return this.getModelo() + " - " + this.getPlaca();
     }
     
     

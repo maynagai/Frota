@@ -2,7 +2,6 @@
 package dao;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import modelo.Administrador;
 import util.JpaUtil;

@@ -30,10 +30,10 @@ public class Emprestimo implements Serializable {
     @Column
     @Temporal(TemporalType.DATE)
     private Date devolucao;
-    @ManyToOne(optional=false, cascade = CascadeType.ALL )     // MUITOS Emprestimos para UM Veiculo
+    @ManyToOne(optional=false )     // MUITOS Emprestimos para UM Veiculo
     @JoinColumn(name="veiculo")
     private Veiculo veiculo;
-    @ManyToOne(optional=false, cascade = CascadeType.ALL )       // MUITOS comprovantes para UM aluno
+    @ManyToOne(optional=false )       // MUITOS comprovantes para UM aluno
     @JoinColumn(name="usuario")
     private Usuario usuario;
 

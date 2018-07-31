@@ -5,9 +5,10 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
+import modelo.Usuario;
+import modelo.Veiculo;
 import util.JpaUtil;
 
 /**
@@ -65,5 +66,39 @@ public class Dao <T> implements Serializable {
         List<T> lista = manager.createQuery(query).getResultList();
         manager.close();      
         return lista;
+    }
+    
+    
+    public Veiculo buscarPorPlacaVeiculo(String placa) {
+        Veiculo temp = new Veiculo();
+        manager = JpaUtil.getEntityManager();
+        String sql = "SELECT v FROM Veiculo v WHERE v.placa = :p";
+        TypedQuery<Veiculo> query = manager.createQuery(sql, Veiculo.class);
+        query.setParameter("p", placa);
+        try {
+            temp = query.getSingleResult();
+        } catch (Exception e) {  //aqui poderia haver um tratamento de exceção mais decente
+//            System.out.println("Exception in AdministradorDao.buscarPorNome(): " + e.toString());
+        } finally {
+            manager.close();
+        }
+        return temp;
+    }
+    
+    
+    public Usuario buscarPorNomeUsuario(String nome) {
+        Usuario temp = new Usuario();
+        manager = JpaUtil.getEntityManager();
+        String sql = "SELECT u FROM Usuario u WHERE u.nome = :nome";
+        TypedQuery<Usuario> query = manager.createQuery(sql, Usuario.class);
+        query.setParameter("nome", nome);
+        try {
+            temp = query.getSingleResult();
+        } catch (Exception e) {  //aqui poderia haver um tratamento de exceção mais decente
+//            System.out.println("Exception in AdministradorDao.buscarPorNome(): " + e.toString());
+        } finally {
+            manager.close();
+        }
+        return temp;
     }
 }
