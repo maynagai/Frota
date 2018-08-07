@@ -8,7 +8,7 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import modelo.Usuario;
 
-@FacesConverter(value = "usuarioConverter")
+@FacesConverter(value = "usuarioConverter", forClass=Usuario.class)
 public class UsuarioConverter implements Converter {
 
     @Override
